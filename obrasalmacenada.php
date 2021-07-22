@@ -7,21 +7,31 @@
         $title =  $_POST["title"];
         $redaccion =  $_POST["redaccion"];   
         setcookie($title,$redaccion,time() + 84600); 
-        $myfile =  fopen($title.".txt","w");
+        $myfile =  fopen("obras/".$title.".txt","w");
         $text = $redaccion;
-         fwrite($myfile,$text);
+        fwrite($myfile,$text);
         fclose($myfile);
       }   
+      ?>
+      <?php 
+        if(isset($_POST["btnupdate"])){
+          $newtitle =  $_POST["newtitle"];
+          $newredaccion = $_POST["newredaccion"];
+          setcookie($newtitle,$newredaccion,time() +84600);
+          $addfile =  fopen("obras/".$newtitle.".txt","w");
+          $newtext =  $newredaccion;
+          fwrite($addfile,$newtext);
+          fclose($addfile);
+        }
       ?>
 
       <?php foreach ($_COOKIE as $key => $value) {?>
       <article class=" contain-fluid border border-primary mb-1 text-dark p-1">
         <h3 class="text-center text-uppercase"><?php echo $key;?></h3>
-        <button class="btn btn-outline-primary mt-1"><a href="obraseditar.php?id=<?php echo $key.'.txt';?>">Editar Redaccion</a></button></button>
+        <button class="btn btn-primary mt-1"><a  class="nav-link text-white font-weight-bold " href="obraseditar.php?id=<?php echo $key.'.txt';?>">Editar Redaccion</a></button></button>
       </article>
       <?php
-      }
-          
+      } 
     ?>
 
 
